@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <style>
+*{
+    color: white;
+    font-family: 'Barlow', sans-serif;
+}
+
+.red-style{
+    background-color: rgb(255, 81, 81);
+}
+
+.blue-style{
+    background-color: #38B6FF;
+}
+
+.blue-style2{
+    background-color: #006FAF;
+    padding: 0.5em;
+    margin: 1em;
+}
+
+.purple-style{
+    background-color: #984FFF;
+}
+
+.purple-style2{
+    background-color: #5E17EB;
+    padding: 0.5em;
+    margin: 1em;
+}
+
+.page-div{
+    display: flex;
+    flex-direction: row;
+    padding: -2em;
+}
+
+.input-div-style{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    padding-right: 2em;
+    text-align: center;
+    width: 25em;
+    height: 850px;
+    padding-left: 2em;
+    left: 3em;
+}
+
+.input-style{
+    border-radius: 10px;
+    width: 5em;
+    height: 3em;
+    border: none;
+    color: black;
+    font-size: large;
+    text-align: center;
+}
+
+.input-layout{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1em;
+    padding-left: 1em;
+}
+
+.input-layout2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1em;
+    padding-left: 0.5em;
+}
+
+label{
+    font-size: 20px;
+    width: 7em;
+    padding: 1em;
+}
+
+.label2{
+    font-size: 20px;
+    padding: 0.5em;
+}
+
+.output-div-style{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    text-align: center;
+    width: 75em;
+    height: 850px;
+}
+
+.nav-div, .nav-div2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: -3em;
+    margin-top: -3em;
+}
+
+.nav-div2>*{
+    margin: 1em;
+    margin-top: -0.7em;
+}
+
+.selected-nav{
+    opacity: 1.0;
+}
+
+.text-output-div, .text-output-div2{
+    width: 25%;
+    height: 60%;
+    text-align: left;
+    margin: auto;
+    margin-top: -1em;
+    margin-bottom: 2em;
+    border-radius: 15px;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    padding: 2em;
+    font-size: 20px;
+    color: white;
+    line-height: -20px;
+}
+
+.text-output-div2{
+    width: 75%;
+    height: 80%;
+}
+
+a{
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    opacity: 0.6;
+    text-decoration: none;
+}
+
+button{
+    border-radius: 10px;
+    padding: 0.1em;
+    width: 5em;
+    height: 3em;
+    border: none;
+    align-self: center;
+    font-size: 20px;
+}
+
+button:hover{
+    border: white 2px solid;
+}
+
+.code-div{
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+    margin-bottom: -15em;
+}
+
+.chart{
+    margin: auto;
+    margin-top: -3em;
+}
+
+h1{
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.comment-div{
+    margin-top: 15em;
+}
+
+body{
+    margin: -1em;
+}
+
+#page2{
+    padding: 2em;
+    padding-top: -5em;
+    background-color: #5E17EB;
+}
+
+#page1{
+    background-color: #38B6FF;
+}
+    </style>
+</head>
+<body style="background-color: transparent;" class="chart">
+<div class="page-div" id="page1">
+    <div class="blue-style input-div-style">
+    <h1>Input</h1>
+    <form action="{{ url_for('main_functionality')}}" method="post">
+    <div class="input-layout">
+        <label for="field1">Number of Processes: </label>
+        <input min="1" max="20" type="number" class="input-style" name="field1" id="field1"/>
+    </div>
+    <div class="input-layout">
+        <label for="field1">How Many Numbers (N) to Generate:</label>
+        <input min="1"max="50" type="number" class="input-style" name="field2" id="field2"/>
+    </div>
+    <button class="blue-style2" type="submit">Go</button>
+    </form>
+    </div>
+
+
+    <div class="blue-style2 output-div-style">
+        <div class="nav-div">
+            <a class="selected-nav" href="#page1"><h1>Parallel Output</h1></a>
+            <a href="#page2"><h1>Comparison</h1></a>
+        </div>
+        <div class="code-div">
+            <div class="blue-style text-output-div">
+                <h3>Numbers Generated (N) Greater than or Equal to 1e5</h3>
+                {%for i in range(0, random_nums_length)%} 
+                <p>{{random_nums[i]}}</p>
+                {%endfor%} 
+            </div>
+            <div class="blue-style text-output-div">
+                <h3>Last Number in Fibonacci Sequence with Length N</h3>
+                {%for i in range(0, length)%} 
+                <p>{{value[i]}}</p>
+                {%endfor%} 
+            </div>
+    </div>
+    </div>
+</div>
+
+<div class="page-div" id="page2">
+    <div class="purple-style2 output-div-style">
+        <div class="nav-div">
+            <a href="#page1"><h1>Parallel Output</h1></a>
+            <a href="#page2" class="selected-nav"><h1>Comparison</h1></a>
+        </div>
+        <div class="code-div row">
+            <div class="chart">
+                <h3>Runtimes vs Number of Processes for N Numbers</h3>
+                <canvas id="lineChart" width="900" height="400"></canvas>
+                <script>
+                    var ctx = document.getElementById("lineChart").getContext("2d");
+                    Chart.defaults.global.defaultFontColor = "#fff";
+                    var lineChart = new Chart (ctx, {
+                        type: "line",
+                        data: {
+                            labels: {{ labels | safe }},
+                            datasets: [
+                                {
+                                    label: "Runtime in Seconds",
+                                    data: {{ values | safe }},
+                                    fill: false,
+                                    borderColor: "white",
+                                    lineTension: 0.1,
+                                    color: "white",
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: false,
+                        }
+                    });
+                </script>
+            </div>
+    </div>
+    </div>
+    {% if random_nums_length>0 %}
+    <h3 class="comment-div">You Calculated the Fibonacci Sequence for {{random_nums_length}} Numbers Run by {{num_process}} Processes</h3>
+    {% else %}
+        <div></div>
+    {% endif %}
+</div>
+
+</body>
+
